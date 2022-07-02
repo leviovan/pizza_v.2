@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
-const Category = () => {
-  const [categoryIndex, setCategoryIndex] = useState(0);
-
+const Category = ({ categoryIndex, setCategoryIndex }) => {
   const categorys = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   return (

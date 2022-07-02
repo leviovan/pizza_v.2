@@ -1,17 +1,17 @@
 import React, { useRef, useState } from 'react';
 import useOnClickOutside from '../../hooks/UseOutsideHook';
 
-const Sort = () => {
+const Sort = ({ sorts, activeSort, setActiveSort }) => {
   const ref = useRef();
-  const sorts = ['популярности', 'цене', 'алфавиту'];
-  const [activeSort, setActiveSort] = useState(0);
-  const [isModalOpen, setModalOpen] = useState(false);
+
+  // const [isModalOpen, setModalOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const SortName = sorts[activeSort];
+  const SortName = sorts[activeSort].name;
 
   const onClickItem = (i) => {
     setActiveSort(i);
+    console.log(i);
     setOpen(false);
   };
 
@@ -42,9 +42,9 @@ const Sort = () => {
             {sorts.map((sort, i) => (
               <li
                 onClick={() => onClickItem(i)}
-                key={sort}
+                key={sort.name}
                 className={i === activeSort ? 'active' : ''}>
-                {sort}
+                {sort.name}
               </li>
             ))}
           </ul>
