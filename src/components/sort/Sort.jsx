@@ -1,17 +1,24 @@
 import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import useOnClickOutside from '../../hooks/UseOutsideHook';
+import { setSort } from '../../Redux/store/filterSlice/filterSlice';
 
-const Sort = ({ sorts, activeSort, setActiveSort }) => {
+const Sort = () => {
   const ref = useRef();
 
   // const [isModalOpen, setModalOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const SortName = sorts[activeSort].name;
+  const sorts = [
+    { sort: 'rating', name: 'популярности' },
+    { sort: 'price', name: 'цене' },
+    { sort: 'name', name: 'алфавиту' },
+  ];
+  const sortNumber = useSelector((state) => state.filter.sortActive);
+  const dispatch = useDispatch();
 
   const onClickItem = (i) => {
-    setActiveSort(i);
-    console.log(i);
+    dispatch(setSort(sorts[i]));
     setOpen(false);
   };
 
@@ -33,7 +40,7 @@ const Sort = ({ sorts, activeSort, setActiveSort }) => {
         </svg>
         <b>Сортировка по:</b>
         <span disabled={open} onClick={() => setOpen(!open)}>
-          {SortName}
+          {sortNumber.name}
         </span>
       </div>
       {open && (
@@ -43,7 +50,7 @@ const Sort = ({ sorts, activeSort, setActiveSort }) => {
               <li
                 onClick={() => onClickItem(i)}
                 key={sort.name}
-                className={i === activeSort ? 'active' : ''}>
+                className={i === sortNumber ? 'active' : ''}>
                 {sort.name}
               </li>
             ))}
