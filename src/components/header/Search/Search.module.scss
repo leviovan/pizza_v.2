@@ -1,13 +1,18 @@
-.root{
-    border-radius: 15px;
-    border: 1px  solid grey ;
-    padding: 10px 10px;
-    width: 15vw;
-    font-size: 16px;
+.root {
+  border-radius: 15px;
+  border: 1px solid grey;
+  padding: 10px 10px;
+  width: 15vw;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
-input{
-
-    border: none;
-    margin-left: 40px;
-    font-size:20px
+.root:nth-last-child(2){
+    cursor: pointer;
+  }
+input {
+  border: none;
+  //margin-left: 40px;
+  font-size: 20px;
 }
