@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setCategoty } from "../../Redux/store/Slice/filterSlice";
+import { setCategory } from "../../Redux/store/Slice/filterSlice";
 
 const Category = () => {
   const categorys = [
@@ -11,7 +11,7 @@ const Category = () => {
     "Закрытые",
   ];
 
-  const categoryNumber = useSelector((state) => state.filter.categotyNumber);
+  const categoryNumber = useSelector((state) => state.filter.categoryNumber);
   const dispatch = useDispatch();
 
   return (
@@ -20,7 +20,7 @@ const Category = () => {
         {categorys.map((category, index) => (
           <li
             key={`category_${index}`}
-            onClick={() => dispatch(setCategoty(index))}
+            onClick={() => dispatch(setCategory(index))}
             className={categoryNumber === index ? "active" : ""}
           >
             {category}

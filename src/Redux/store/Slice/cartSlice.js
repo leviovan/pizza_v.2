@@ -21,7 +21,7 @@ export const cartSlice = createSlice({
             state.count++;
         },
         removeAllItem: (state) => {
-            state.items.splice(0,state.items.length)
+            state.items=[]
             state.count=0;
             state.totalPrice=0
         },
