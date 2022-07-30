@@ -18,6 +18,7 @@ body {
 
 .content {
   padding: 40px 0;
+  // height: 825px;
 
   &__title {
     margin: 35px 0;
@@ -70,7 +71,6 @@ body {
 .container {
   width: $container-width;
   margin: 0 auto;
-
   &--cart {
     max-width: 820px;
     margin: 90px auto;

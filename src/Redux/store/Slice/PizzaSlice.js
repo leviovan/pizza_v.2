@@ -10,7 +10,6 @@ export const fetchPizza = createAsyncThunk(
         sort,
         searchValue,
         pageCounter,}) => {
-       
         let {data} = await axios.get(
             `${baseUrl}?${categoryURL}&sortBy=${sort.sort}&order=asc&search=${searchValue}&page=${pageCounter}&limit=4`
           );
@@ -48,6 +47,7 @@ export const pizzaSlice = createSlice({
         }
       },
 )
+export const pizzaSelector=state=>state.items
 export const { setItems} = pizzaSlice.actions
 
 export default pizzaSlice.reducer

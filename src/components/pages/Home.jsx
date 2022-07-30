@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import Skeleton from "../pizza/Skeleton";
 import Category from "../category/Category";
 import Sort, { sorts } from "../sort/Sort";
 import Pizza from "../pizza/Pizza";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Pagination from "../pagination/Pagination";
-import { AppContext } from "../../App";
 import { useSelector, useDispatch } from "react-redux";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +16,7 @@ const Home = () => {
   const isSearth = useRef(false);
   const isMounted = useRef(false);
   const dispatch = useDispatch();
-  const { searchValue } = useContext(AppContext);
+  const searchValue = useSelector((state) => state.filter.searchValue);
   const navigate = useNavigate();
   const { items, isLoading } = useSelector((state) => state.pizza);
   const {
@@ -45,9 +44,9 @@ const Home = () => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
 
-      const sort = sorts.find((obj) => obj.sort === params.sort.sort);
+      const sort1 = sorts.find((obj) => obj.sort === params.sort.sort);
 
-      dispatch(setParams({ ...params, sort }));
+      dispatch(setParams({ ...params, sort1 }));
     }
     isSearth.current = true;
   }, []);
