@@ -32,7 +32,24 @@ const FullPizza = () => {
           <img className="" src={`${pizza.imageUrl}`} alt="" srcset="" />
         </div>
         <div className="pizza-main__right">
-          <h2>{pizza.name}</h2>
+          <p>
+            <span>Название</span>:{pizza.name}
+          </p>
+          <p>
+            <span>Название</span>:{pizza.name}
+          </p>
+          <p>
+            <span>Название</span>:{pizza.name}
+          </p>
+          <p>
+            <span>Название</span>:{pizza.name}
+          </p>
+          <p>
+            <span>Название</span>:{pizza.name}
+          </p>
+          <p>
+            <span>Название</span>:{pizza.name}
+          </p>
         </div>
       </div>
     </div>
