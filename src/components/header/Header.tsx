@@ -2,9 +2,11 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Search from "./Search/Search";
 import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/store/store";
 
-const Header = () => {
-  const { totalPrice, count } = useSelector((state) => state.cart);
+
+const Header : React.FC= () => {
+  const { totalPrice, count } = useSelector((state:RootState) => state.cart);
   const { pathname } = useLocation();
   return (
     <div className="header">

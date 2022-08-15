@@ -1,18 +1,30 @@
-import { useSelector, useDispatch } from "react-redux";
+
+import { useSelector, } from "react-redux";
 import {
   addCartItem,
   removeAllItem,
   removeItem,
 } from "../../Redux/store/Slice/cartSlice";
-import CartEmpty from "./cartEmpty/CartEmpty";
+import { RootState, useAppDispatch } from "../../Redux/store/store";
+
+
+
+// type cartTypes={
+//   id:string,
+//   size:number,
+//   type:number,
+//   count:number,
+//   imageUrl:string,
+//   name:string,
+//   price:number
+// }
 
 const Cart = () => {
-  const { items, count, totalPrice } = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
-
-  if (!totalPrice) {
-    return <CartEmpty />;
-  } else {
+  const { items, count, totalPrice } = useSelector((state:RootState) => state.cart);
+  const dispatch = useAppDispatch();
+  console.log(items);
+  
+  
     return (
       <div className="container">
         <div className="cart">
@@ -93,7 +105,6 @@ const Cart = () => {
               <span>Очистить корзину</span>
             </div>
           </div>
-
           {items.map((item) => (
             <div className="content__items">
               <div className="cart__item">
@@ -225,6 +236,5 @@ const Cart = () => {
       </div>
     );
   }
-};
 
 export default Cart;

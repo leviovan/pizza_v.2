@@ -1,7 +1,8 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { setCategory } from "../../Redux/store/Slice/filterSlice";
+import { RootState, useAppDispatch } from "../../Redux/store/store";
 
-const Category = () => {
+const Category: React.FC = () => {
   const categorys = [
     "Все",
     "Мясные",
@@ -11,8 +12,8 @@ const Category = () => {
     "Закрытые",
   ];
 
-  const categoryNumber = useSelector((state) => state.filter.categoryNumber);
-  const dispatch = useDispatch();
+  const categoryNumber:number = useSelector((state:RootState) => state.filter.categoryNumber);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="categories">

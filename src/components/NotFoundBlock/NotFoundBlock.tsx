@@ -1,8 +1,7 @@
 import React from 'react';
+import Styles from './NotFoundBlock.module.scss';
 
-import Styles from './NotFoundBlock.module.css';
 
-console.log(Styles);
 const NotFoundBlock = () => {
   return (
     <div className={Styles.text}>

@@ -1,9 +1,13 @@
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import useOnClickOutside from "../../hooks/UseOutsideHook";
-import { setSort } from "../../Redux/store/Slice/filterSlice";
+import { setSort, sortActiveType } from "../../Redux/store/Slice/filterSlice";
+import { RootState, useAppDispatch } from "../../Redux/store/store";
 
-export const sorts = [
+
+
+
+export const sorts: sortActiveType[] = [
   { sort: "rating", name: "популярности" },
   { sort: "price", name: "цене" },
   { sort: "name", name: "алфавиту" },
@@ -13,12 +17,12 @@ const Sort = () => {
   const ref = useRef();
   const [open, setOpen] = useState(false);
   const { sort: sortActive, name } = useSelector(
-    (state) => state.filter.sortActive
+    (state:RootState) => state.filter.sortActive
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const onClickItem = (i) => {
+  const onClickItem = (i:number) => {
     dispatch(setSort(sorts[i]));
     setOpen(!open);
   };
@@ -41,7 +45,7 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span disabled={open} onClick={() => setOpen(!open)}>
+        <span /*disabled={open}*/ onClick={() => setOpen(!open)}>
           {name}
         </span>
       </div>

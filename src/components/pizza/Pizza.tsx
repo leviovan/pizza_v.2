@@ -1,19 +1,31 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addCartItem } from "../../Redux/store/Slice/cartSlice";
+import { RootState, useAppDispatch } from "../../Redux/store/store";
 
-const Pizza = ({ id, name, imageUrl, price, sizes, types }) => {
+
+type IPizza={
+  id:string,
+  sizes:string[],
+  types:string[],
+  count?:number,
+  imageUrl:string,
+  name:string,
+  price:number
+}
+const Pizza:React.FC<IPizza> = ({ id, name, imageUrl, price, sizes, types,count }) => {
   const [pizzaCount, setpizzaCount] = useState(0);
   const [pizzaSize, setpizzaSize] = useState(sizes[0]);
   const [pizzaActiveType, setPizzaActiveType] = useState(0);
   const typesPizza = ["Тонкое", "Традиционное"];
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const items = useSelector((state) => state.cart);
+  const items = useSelector((state:RootState) => state.cart);
   const addPizzaInCart = () => {
     setpizzaCount(pizzaCount + 1);
+    
     const item = {
       id,
       name,
@@ -21,6 +33,7 @@ const Pizza = ({ id, name, imageUrl, price, sizes, types }) => {
       imageUrl,
       type: typesPizza[pizzaActiveType],
       size: pizzaSize,
+      count: count
     };
     dispatch(addCartItem(item));
   };
@@ -34,20 +47,20 @@ const Pizza = ({ id, name, imageUrl, price, sizes, types }) => {
         <h4 className="pizza-block__title">{name}</h4>
         <div className="pizza-block__selector">
           <ul>
-            {types.map((type) => (
+            {types.map((type:string, index) => (
               <li
                 onClick={() => {
-                  setPizzaActiveType(type);
+                  setPizzaActiveType(index);
                 }}
-                className={type === pizzaActiveType ? "active" : ""}
-                key={`type_${type}`}
+                className={index === pizzaActiveType ? "active" : ""}
+                key={`type_${index}`}
               >
-                {typesPizza[type]}
+                {typesPizza[index]}
               </li>
             ))}
           </ul>
           <ul>
-            {sizes.map((size) => (
+            {sizes.map((size:string) => (
               <li
                 key={size}
                 onClick={() => setpizzaSize(size)}

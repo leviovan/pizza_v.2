@@ -5,25 +5,27 @@ import Sort, { sorts } from "../sort/Sort";
 import Pizza from "../pizza/Pizza";
 import { useEffect } from "react";
 import Pagination from "../pagination/Pagination";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
-import { setParams } from "../../Redux/store/Slice/filterSlice";
+import { setParams, sortActiveType } from "../../Redux/store/Slice/filterSlice";
 import { useRef } from "react";
 import { fetchPizza } from "../../Redux/store/Slice/PizzaSlice";
+import { RootState, useAppDispatch } from "../../Redux/store/store";
+
 
 const Home = () => {
   const isSearth = useRef(false);
   const isMounted = useRef(false);
-  const dispatch = useDispatch();
-  const searchValue = useSelector((state) => state.filter.searchValue);
+  const dispatch = useAppDispatch();
+  const searchValue = useSelector((state:RootState) => state.filter.searchValue);
   const navigate = useNavigate();
-  const { items, isLoading } = useSelector((state) => state.pizza);
+  const { items, isLoading } = useSelector((state:RootState) => state.pizza);
   const {
     categoryNumber: categorySelected,
     sortActive: sort,
     pageCounter: pageCounter,
-  } = useSelector((state) => state.filter);
+  } = useSelector((state:RootState) => state.filter);
 
   const categoryURL =
     categorySelected > 0 ? `category=${categorySelected}` : "";
@@ -42,11 +44,10 @@ const Home = () => {
   useEffect(() => {
     fetchPizzas();
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-
-      const sort1 = sorts.find((obj) => obj.sort === params.sort.sort);
-
-      dispatch(setParams({ ...params, sort1 }));
+      let params = qs.parse(window.location.search.substring(1));
+      const {sort} = sorts.find((obj:sortActiveType) => obj.sort === params.sort);
+      //@ts-ignore
+      dispatch(setParams({...params,sort}));
     }
     isSearth.current = true;
   }, []);
@@ -83,7 +84,7 @@ const Home = () => {
             ? [...Array(items.length)].map((_, index) => (
                 <Skeleton key={`Pizza_${index}`} />
               ))
-            : items.map((obj, index) => (
+            : items.map((obj, index:number) => (
                 <Pizza key={`Pizza_${index}`} {...obj} />
               ))}
         </div>
