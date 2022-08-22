@@ -1,5 +1,5 @@
 import debounce from "lodash.debounce";
-import React  from "react";
+import React, { memo, useMemo }  from "react";
 import { useCallback } from "react";
 
 import { useSelector} from "react-redux";
@@ -8,7 +8,7 @@ import { setSearch } from "../../../Redux/store/Slice/filterSlice";
 import { useAppDispatch } from "../../../Redux/store/store";
 import style from "./Search.module.scss";
 
-const Search = () => {
+const Search = memo(() => {
   const dispatch = useAppDispatch();
   const searchValue = useSelector((state:AnyAction) => state.filter.searchValue);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -85,6 +85,7 @@ const Search = () => {
       </svg>
     </div>
   );
-};
+  }
+)
 
 export default Search;
