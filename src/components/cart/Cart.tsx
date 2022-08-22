@@ -2,29 +2,24 @@
 import { useSelector, } from "react-redux";
 import {
   addCartItem,
+  IitemsCart,
   removeAllItem,
+
+  removeAllItemFromCart,
+
   removeItem,
 } from "../../Redux/store/Slice/cartSlice";
 import { RootState, useAppDispatch } from "../../Redux/store/store";
 
-
-
-// type cartTypes={
-//   id:string,
-//   size:number,
-//   type:number,
-//   count:number,
-//   imageUrl:string,
-//   name:string,
-//   price:number
-// }
 
 const Cart = () => {
   const { items, count, totalPrice } = useSelector((state:RootState) => state.cart);
   const dispatch = useAppDispatch();
   console.log(items);
   
-  
+  const deletePiizaFromCart=(item:IitemsCart,index:number)=>{
+    item.count>1 ? dispatch(removeItem(item)):dispatch(removeAllItemFromCart(index))
+  }
     return (
       <div className="container">
         <div className="cart">
@@ -105,7 +100,7 @@ const Cart = () => {
               <span>Очистить корзину</span>
             </div>
           </div>
-          {items.map((item) => (
+          {items.map((item:IitemsCart,index:number) => (
             <div className="content__items">
               <div className="cart__item">
                 <div className="cart__item-img">
@@ -123,7 +118,7 @@ const Cart = () => {
                 </div>
                 <div className="cart__item-count">
                   <div
-                    onClick={() => dispatch(removeItem(item))}
+                    onClick={() => deletePiizaFromCart(item,index)}
                     className="button button--outline button--circle cart__item-count-minus"
                   >
                     <svg
@@ -170,7 +165,9 @@ const Cart = () => {
                   <b>{item.price * item.count}</b>
                 </div>
                 <div className="cart__item-remove">
-                  <div className="button button--outline button--circle">
+                  <div 
+                      onClick={() => dispatch(removeAllItemFromCart(index))}
+                      className="button button--outline button--circle">
                     <svg
                       width="10"
                       height="10"
