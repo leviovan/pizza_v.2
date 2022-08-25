@@ -19,6 +19,7 @@ interface ICartSlice{
 
 const initialState:ICartSlice= {
     items:[],
+    // items:JSON.parse(localStorage.getItem('cart'))||[],
     totalPrice:0,
     count:0
 }

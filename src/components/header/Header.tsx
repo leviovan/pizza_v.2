@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Search from "./Search/Search";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store/store";
 
-
-const Header : React.FC= () => {
-  const { totalPrice, count } = useSelector((state:RootState) => state.cart);
+const Header: React.FC = () => {
+  const { totalPrice, count, items } = useSelector(
+    (state: RootState) => state.cart
+  );
   const { pathname } = useLocation();
+  const isMounted = useRef(false);
+  useEffect(() => {
+    if (isMounted.current) {
+      const json = JSON.stringify(items);
+      localStorage.setItem("cart", json);
+    }
+    isMounted.current = true;
+  }, [items]);
+
   return (
     <div className="header">
       <div className="container">
